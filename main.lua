@@ -104,7 +104,7 @@ end
 --	---------
 --	+ + | + -
 --
---	
---	
---	
+--	path point X coord = mouseX coord
+--	path point Y coord = need to be calculated with (a o² + b o) / 2
+--	TODO: how do i even calculate <a> and <b> ?
 --	
