@@ -51,16 +51,16 @@ function love.keyreleased(key)
 	elseif key == "a" --add planet
 	then
 		mouse = camera:getMousePos(love.mouse.getX(), love.mouse.getY()) --calculate coordinates dependent on camera
-		errormsg = container:add("asd" .. tostring(math.random(10)), mouse.x, mouse.y, 150, 10) --adds planet (contains debugging code - result)
+		errormsg = container:add(1, "asd" .. tostring(math.random(10)), mouse.x, mouse.y, 150, 10) --adds planet (contains debugging code - result)
 	elseif key == "d" --delete planet
 	then
 		mouse = camera:getMousePos(love.mouse.getX(), love.mouse.getY()) --calculate coordinates dependent on camera
-		errormsg = container:delete(mouse.x, mouse.y) --deletes planet (contains debugging code - result)
+		errormsg = container:delete(1, mouse.x, mouse.y) --deletes planet (contains debugging code - result)
 
 	elseif key == "o" --add planet
 	then
 		mouse = camera:getMousePos(-10, -15) --test for drawind planet with center out of camera
-		errormsg = container:add("asd" .. tostring(math.random(10)), mouse.x, mouse.y, 150, 10) --adds planet (contains debugging code - result)
+		errormsg = container:add(1, "asd" .. tostring(math.random(10)), mouse.x, mouse.y, 150, 10) --adds planet (contains debugging code - result)
 
 	end
 end
