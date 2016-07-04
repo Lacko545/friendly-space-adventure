@@ -17,6 +17,7 @@ end
 function love.draw()
 	love.graphics.setColor(100, 100, 100) --background color. le space
 	
+	
 	camera:set() --sets camera
 	
 		love.graphics.setColor(255, 0, 0) --dbg code

@@ -15,9 +15,9 @@ function container:add(object, name, x, y, radius, rotation) --adds planet to ob
 		then		
 			table.insert(container, {name = name, x = x, y = y, radius = radius or 150, rotation = rotation or 10}) --adds object
 			--return tostring(name .. " " .. tostring(x) .. " " .. tostring(y) .. " " .. tostring(radius)) --dbg msg
-			return tostring(true)
+			return tostring(pos)
 		end
-		return tostring(false)
+		return tostring(pos)
 	--end
 end
 
@@ -69,29 +69,35 @@ function container:update(dt, x, y, width, height) --draws all visible objects
 	end
 end
 
-function container:check(name, x, y)
-	if table.getn(container) == 0 --check if there are any objects
+function container:check(name, mX, mY)
+	size = table.getn(container)
+	if size == 0 --check if there are any objects
 	then
 		return nil --empty container
 	end
 	
-	for pos, value in ipairs(container) --iterate all objects
+	for index=1, size, 1 --loop all game objects
 	do
-		if name ~= ""
+		if name ~= "" --name is filled (no need to fill when deleting. prevents from creating cuplicate planets)
 		then
-			if value.name == name --check for planet with same name
+			if container[index].name == name --check for planet with same name
 			then
-				return pos -- returns number of object
+				return index -- returns number of object
 			end
 		end
-		if value.y + value.radius >= y and value.y - value.radius <= y --check for planet with Y collision
+		if container[index].y + container[index].radius >= mY --check for planet with Y collision
 		then
-			if value.x + value.radius >= x and value.x - value.radius <= x --check for planet with X collision
+			if container[index].y - container[index].radius <= mY --check for planet with Y collision
 			then
-				return pos -- returns number of object
+				if container[index].x + container[index].radius >= mX  --check for planet with X collision
+				then
+					if container[index].x - container[index].radius <= mX --check for planet with X collision
+					then
+						return index -- returns number of object
+					end
+				end
 			end
-			return value.y --no match
 		end
-		return nil --no match
 	end
+	return nil
 end
