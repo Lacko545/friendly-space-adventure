@@ -39,12 +39,12 @@ function container:draw(x, y, width, height) --draws all visible objects
 
 	for pos, value in ipairs(container) --iterate all objects
 	do
-		if value.x + value.radius >= x and value.x <= x + width --check if objects is visible with X coord
+		if value.x + value.radius >= x and value.x - value.radius <= x + width --check if objects is visible with X coord
 		then
-			if value.y + value.radius >= y and value.y <= y + height --check if objects is visible with Y coord
+			if value.y + value.radius >= y and value.y - value.radius <= y + height --check if objects is visible with Y coord
 			then
 				love.graphics.print(value.name .. " " .. tostring(value.x) .. " " .. tostring(value.y) .. " " .. tostring(value.radius), value.x - value.radius / 2, value.y + value.radius + 15) --prints planet info under it
-				love.graphics.setColor(value.x % 254, value.y % 255, value.radius % 50) --sets planet to green
+				love.graphics.setColor(0, 255, 50) --sets planet to green
 				love.graphics.circle("fill", value.x, value.y, value.radius) --draws planet
 			end
 		end
@@ -85,18 +85,18 @@ function container:check(name, mX, mY)
 				return index -- returns number of object
 			end
 		end
-		if container[index].y + container[index].radius >= mY --check for planet with Y collision
+		if container[index].y + container[index].radius >= mY and container[index].y - container[index].radius <= mY --check for planet with Y collision
 		then
-			if container[index].y - container[index].radius <= mY --check for planet with Y collision
-			then
-				if container[index].x + container[index].radius >= mX  --check for planet with X collision
+			--if  --check for planet with Y collision
+			--then
+				if container[index].x + container[index].radius >= mX and container[index].x - container[index].radius <= mX   --check for planet with X collision
 				then
-					if container[index].x - container[index].radius <= mX --check for planet with X collision
-					then
+				--	if --check for planet with X collision
+				--	then
 						return index -- returns number of object
-					end
+				--	end
 				end
-			end
+			--end
 		end
 	end
 	return nil

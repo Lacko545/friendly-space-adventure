@@ -12,11 +12,18 @@ function love.load()
 	container:init() --sets container stuff
 	camera:init()
 	player:init() --sets player stuff
+	
+	centerX = screenWidth / 2 - player.width --sets center X position (with player centered)
+	centerY = screenHeight / 2 - player.height --sets center Y position (with player centered)
 end
 
 function love.draw()
 	love.graphics.setColor(100, 100, 100) --background color. le space
 	
+	love.graphics.print(tostring(player.goToX), 20, 20)
+	love.graphics.print(tostring(player.goToY), 20, 50)
+	love.graphics.print(tostring(camera.x), 200, 20)
+	love.graphics.print(tostring(camera.y), 200, 50)
 	
 	camera:set() --sets camera
 	
@@ -31,6 +38,8 @@ function love.draw()
 end
 
 function love.update(dt)
+	player:updatePlayer(dt) --updates player
+	
 	if love.mouse.isDown(1) --left mouse button
 	then
 		mouse = camera:getMousePos(love.mouse.getX(), love.mouse.getY()) --calculate coordinates dependent on camera
@@ -38,7 +47,7 @@ function love.update(dt)
 	
 	if love.mouse.isDown(2) --right mouse button
 	then
-		mouse = camera:getMousePos(love.mouse.getX(), love.mouse.getY()) --calculate coordinates dependent on camera
+		mouse = camera:getMousePos(love.mouse.getX(), love.mouse.getY(), screenWidth, screenHeight) --calculate coordinates dependent on camera
 		player:goTo(mouse) --set target coordinates for player
 	end
 	

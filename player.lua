@@ -7,18 +7,18 @@ function player:init() --set basic player parameters
 	player.y = screenHeight / 2 - player.height
 	player.goToX = player.x
 	player.goToY = player.y
-	player.fSpeed = 10
-	player.rSpeed = 10
+	player.fSpeed = 50
+	player.rSpeed = 50
 	player.rotation = 0
 end
 
 function player:movePlayer(dx, dy) --move player (SHOULD WORK. not tested yet)
-  self.x = self.x + (dx or 0)
-  self.y = self.y + (dy or 0)
+	player.x = player.x + (dx or 0)
+	player.y = player.y + (dy or 0)
 end
 
 function player:rotatePlayer(dr) -- rotate player  (SHOULD WORK. not tested yet)
-  self.rotation = self.rotation + dr
+  player.rotation = player.rotation + dr
 end
 
 function player:drawPlayer() --draw player (works, but my player sucks. pfff . . . at least it works)
@@ -28,8 +28,21 @@ function player:drawPlayer() --draw player (works, but my player sucks. pfff . .
 end
 
 function player:updatePlayer(dt) --update player (i need to rework movement and rotation as its not working now)
-	player.x = player.x + player.fSpeed * dt
-	player.y = player.y + player.fSpeed * dt
+	if player.x < player.goToX --check if player should move forward
+	then
+		player.x = math.ceil(player.x + player.fSpeed * dt) --moves player forward depending on flight speed
+	elseif player.x > player.goToX --check if player should move backward 
+	then
+		player.x = math.floor(player.x - player.fSpeed * dt) --moves player backward depending on flight speed
+	end
+	if player.y < player.goToY --check if player should move down
+	then
+		player.y = math.ceil(player.y + player.fSpeed * dt) --moves player down depending on flight speed
+	elseif player.y > player.goToY --check if player should move up
+	then
+		player.y = math.floor(player.y - player.fSpeed * dt) --moves player up depending on flight speed
+	end
+	camera:setPosition(player.x - centerX, player.y - centerY) --centers camera on player
 end
 
 function player:goTo(coords) --stores coords where you are heading
