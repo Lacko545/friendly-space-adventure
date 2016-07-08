@@ -8,5 +8,5 @@ function love.conf(t)
 	
 	t.accelerometerjoystick = false
 	t.modules.joystick = false
-	t.modules.touch = false
+	t.modules.touch = true --required for touchpads?
 end

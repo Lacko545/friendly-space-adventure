@@ -1,33 +1,35 @@
 player = {} --TODO: comments
 
 function player:init() --set basic player parameters
-	player.width = 10
-	player.height = 10
-	player.x = screenWidth / 2 - player.width
-	player.y = screenHeight / 2 - player.height
+	ship = love.graphics.newImage("shship2.png") -- loads ship image
+	
+	--player.scale = 0.05
+	player.scale = 1 --scales ship in case of different sprite sizes( 1 = same, >1 = bigger, <1 = smaller)
+	player.width = ship:getWidth() * player.scale
+	player.height = ship:getHeight() * player.scale
+	player.x = screenWidth / 2
+	player.y = screenHeight / 2
+	player.rotation = 0
 	player.goToX = player.x
 	player.goToY = player.y
+	player.rotate = 0
 	player.fSpeed = 50
 	player.rSpeed = 50
-	player.rotation = 0
-end
-
-function player:movePlayer(dx, dy) --move player (SHOULD WORK. not tested yet)
-	player.x = player.x + (dx or 0)
-	player.y = player.y + (dy or 0)
+	
+	centerX = screenWidth / 2 --sets center X position (with player centered)
+	centerY = screenHeight / 2 --sets center Y position (with player centered)
 end
 
 function player:rotatePlayer(dr) -- rotate player  (SHOULD WORK. not tested yet)
-  player.rotation = player.rotation + dr
+	player.rotation = player.rotation + dr
 end
 
 function player:drawPlayer() --draw player (works, but my player sucks. pfff . . . at least it works)
-	love.graphics.setColor(255, 255, 255)
-	love.graphics.rectangle("fill", player.x-5, player.y-5, player.width, player.height) --body of spaceship
-	love.graphics.polygon("fill",player.x+5, player.y-5, player.x+5, player.y+5, player.x+10, player.y) --front of spaceship
+	love.graphics.draw(ship, player.x, player.y, player.rotate, player.scale, player.scale, player.width / (2 * player.scale), player.height / (2 * player.scale)) --draws ship
 end
 
-function player:updatePlayer(dt) --update player (i need to rework movement and rotation as its not working now)
+function player:updatePlayer(dt) --update player (i need to improve movement and add rotation)
+---[[
 	if player.x < player.goToX --check if player should move forward
 	then
 		player.x = math.ceil(player.x + player.fSpeed * dt) --moves player forward depending on flight speed
@@ -42,10 +44,24 @@ function player:updatePlayer(dt) --update player (i need to rework movement and 
 	then
 		player.y = math.floor(player.y - player.fSpeed * dt) --moves player up depending on flight speed
 	end
+--]]
+	if player.rotation ~= player.rotate
+	then
+		if player.goToX < centerX
+		then
+			
+		end
+		if player.goToX == centerX
+		then
+			
+		end
+	end
+	
 	camera:setPosition(player.x - centerX, player.y - centerY) --centers camera on player
 end
 
 function player:goTo(coords) --stores coords where you are heading
 	player.goToX = coords.x --sets target X coord
 	player.goToY = coords.y --sets target Y coord
+	player.rotate = math.atan2((coords.y - player.y), (coords.x - player.x)) + math.pi / 2 --calculates angle of rotation
 end

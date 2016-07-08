@@ -12,22 +12,23 @@ function love.load()
 	container:init() --sets container stuff
 	camera:init()
 	player:init() --sets player stuff
-	
-	centerX = screenWidth / 2 - player.width --sets center X position (with player centered)
-	centerY = screenHeight / 2 - player.height --sets center Y position (with player centered)
 end
 
 function love.draw()
 	love.graphics.setColor(100, 100, 100) --background color. le space
 	
-	love.graphics.print(tostring(player.goToX), 20, 20)
-	love.graphics.print(tostring(player.goToY), 20, 50)
-	love.graphics.print(tostring(camera.x), 200, 20)
-	love.graphics.print(tostring(camera.y), 200, 50)
+	love.graphics.print(tostring(player.x), 20, 20)
+	love.graphics.print(tostring(player.y), 20, 50)
+	love.graphics.print(tostring(camera.x), 80, 20)
+	love.graphics.print(tostring(camera.y), 80, 50)
+	love.graphics.print(tostring(targetDistance), 140, 20)
+	love.graphics.print(tostring(targetXDistance), 140, 50)
+	love.graphics.print(tostring(rotated), 190, 20)
+	love.graphics.print(tostring(player.rotate), 190, 50)
 	
 	camera:set() --sets camera
 	
-		love.graphics.setColor(255, 0, 0) --dbg code
+		--love.graphics.setColor(255, 0, 0) --dbg code
 		love.graphics.print(errormsg, 50, 50) --dbg code
 
 	container:draw(camera.x, camera.y, screenWidth, screenHeight) --draw all game objects
@@ -35,6 +36,8 @@ function love.draw()
 	player:drawPlayer() --draw player stuff
 	
 	camera:unset() --unsets camera
+	
+	love.graphics.rectangle("fill", screenWidth / 2 - 5, screenHeight / 2 - 5, 10, 10)
 end
 
 function love.update(dt)
@@ -51,7 +54,7 @@ function love.update(dt)
 		player:goTo(mouse) --set target coordinates for player
 	end
 	
-	--container:update(dt, camera.x, camera.y, screenWidth, screenHeight)
+	container:update(dt, camera.x, camera.y, screenWidth, screenHeight)
 end
 
 function love.keyreleased(key)

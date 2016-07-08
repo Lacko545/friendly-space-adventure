@@ -19,11 +19,6 @@ function camera:unset() --unsets camera
   love.graphics.pop() --removes frame from stack
 end
 
-function camera:move(dx, dy) --move camera
-  camera.x = camera.x + (dx or 0) --move X coord
-  camera.y = camera.y + (dy or 0) --move Y coord
-end
-
 function camera:rotate(dr) --rotate camera
   camera.rotation = camera.rotation + dr -- rotates camera with actual + delta of rotation. not supply full rotation
 end
