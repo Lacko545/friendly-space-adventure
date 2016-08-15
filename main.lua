@@ -19,12 +19,12 @@ function love.draw()
 	
 	love.graphics.print(tostring(player.x), 20, 20)
 	love.graphics.print(tostring(player.y), 20, 50)
-	love.graphics.print(tostring(camera.x), 80, 20)
-	love.graphics.print(tostring(camera.y), 80, 50)
-	love.graphics.print(tostring(targetDistance), 140, 20)
-	love.graphics.print(tostring(targetXDistance), 140, 50)
-	love.graphics.print(tostring(rotated), 190, 20)
-	love.graphics.print(tostring(player.rotate), 190, 50)
+	love.graphics.print(tostring(player.forward.x), 160, 20)
+	love.graphics.print(tostring(player.forward.y), 160, 50)
+	love.graphics.print(tostring(player.goToX), 290, 20)
+	love.graphics.print(tostring(player.goToY), 290, 50)
+	love.graphics.print(tostring(player.rotation * 180 / math.pi), 390, 20)
+	love.graphics.print(tostring(player.rotateTo * 180 / math.pi), 390, 50)
 	
 	camera:set() --sets camera
 	
