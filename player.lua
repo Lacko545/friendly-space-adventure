@@ -1,7 +1,5 @@
 player = {} --TODO: comments
 
-require("vector")
-
 function player:init() --set basic player parameters
 	ship = love.graphics.newImage("shship2.png") -- loads ship image
 	
